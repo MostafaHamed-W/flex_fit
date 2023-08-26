@@ -61,7 +61,8 @@ class AboutView extends StatelessWidget {
                       ),
                       SizedBox(height: 5),
                       Text(
-                          'We want to know more about you, follow the next\n steps to complete the information')
+                        'We want to know more about you, follow the next\n steps to complete the information',
+                      )
                     ],
                   ),
                   const SizedBox(height: 30),
