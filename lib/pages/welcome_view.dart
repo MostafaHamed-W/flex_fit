@@ -89,7 +89,9 @@ class WelcomeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Routes.LOGIN);
+                    },
                     child: Container(
                       height: 50,
                       width: Get.width * 0.7,

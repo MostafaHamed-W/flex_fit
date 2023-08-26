@@ -30,9 +30,10 @@ class AboutView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 50),
               child: Column(
                 children: [
+                  const SizedBox(height: 10),
                   RichText(
                     text: const TextSpan(
-                      text: "HARD \t",
+                      text: "Flex \t",
                       style: TextStyle(
                         fontSize: 30,
                         letterSpacing: 5,
@@ -41,7 +42,7 @@ class AboutView extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: 'ELEMENT',
+                          text: 'Fit',
                           style: TextStyle(
                             color: kFirstColor,
                           ),
