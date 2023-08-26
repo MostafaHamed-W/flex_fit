@@ -1,6 +1,6 @@
+import 'package:flex_fit/routes/app_pages.dart';
 import 'package:flex_fit/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 
 class WelcomeView extends StatelessWidget {
@@ -27,7 +27,7 @@ class WelcomeView extends StatelessWidget {
             width: Get.width,
             color: kThirdColor.withOpacity(0.7),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 55),
               child: Column(
                 children: [
                   RichText(
@@ -55,7 +55,8 @@ class WelcomeView extends StatelessWidget {
                       children: [
                         Text(
                           'Welcome',
-                          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                         SizedBox(height: 17),
                         Text('Train and live the new experience of \n exercising at home')
@@ -64,7 +65,9 @@ class WelcomeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Routes.ABOUT);
+                    },
                     child: Container(
                       height: 50,
                       width: Get.width * 0.7,
