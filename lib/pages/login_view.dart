@@ -175,7 +175,9 @@ class LoginView extends StatelessWidget {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(Routes.REGISTER);
+                          },
                           child: Container(
                             width: Get.width * 0.7,
                             height: 50,

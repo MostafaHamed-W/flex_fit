@@ -32,7 +32,7 @@ class WelcomeView extends StatelessWidget {
                 children: [
                   RichText(
                     text: const TextSpan(
-                      text: "FLEX \t",
+                      text: "FLEX\t",
                       style: TextStyle(
                         fontFamily: 'bebas',
                         fontSize: 30,
@@ -52,6 +52,7 @@ class WelcomeView extends StatelessWidget {
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Welcome',
