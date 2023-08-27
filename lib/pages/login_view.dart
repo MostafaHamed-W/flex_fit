@@ -1,3 +1,4 @@
+import 'package:flex_fit/routes/app_pages.dart';
 import 'package:flex_fit/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -139,7 +140,9 @@ class LoginView extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(Routes.FORGETPASSWORD);
+                      },
                       child: const Text(
                         'Forgot your password?',
                         style: TextStyle(color: Colors.white, fontSize: 18),

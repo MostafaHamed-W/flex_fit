@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flex_fit/pages/forget_password_view.dart';
 import 'package:get/get.dart';
 
 import '../pages/about_view.dart';
@@ -24,5 +25,9 @@ class AppPages {
       name: Routes.LOGIN,
       page: () => const LoginView(),
     ),
+    GetPage(
+      name: Routes.FORGETPASSWORD,
+      page: () => const ForgetPasswordView(),
+    )
   ];
 }
