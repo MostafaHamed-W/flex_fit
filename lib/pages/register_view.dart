@@ -1,57 +1,140 @@
+import 'package:flex_fit/routes/app_pages.dart';
+import 'package:flex_fit/services/firebase_auth.dart';
 import 'package:flex_fit/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
   @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberContrtoller = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    phoneNumberContrtoller.dispose();
+    passwordController.dispose();
+    passwordConfirmController.dispose();
+
+    super.dispose();
+  }
+
+  void signUpUser() async {
+    isLoading = true;
+    String result = await FirebaseAuthMethods().signUp(
+      context: context,
+      email: emailController.text,
+      password: passwordController.text,
+    );
+    if (result == 'success') {
+      setState(() {
+        isLoading = false;
+      });
+      Get.toNamed(Routes.LOGIN);
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: kThirdColor,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            BodyHeader(),
-            BodyForm(),
-            ActionButton(),
-          ],
-        ),
+        child: isLoading == true
+            ? SizedBox(
+                height: Get.height,
+                width: Get.width,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : Column(
+                children: [
+                  const BodyHeader(),
+                  BodyForm(
+                    nameController: nameController,
+                    emailController: emailController,
+                    phoneNumberContrtoller: phoneNumberContrtoller,
+                    passwordController: passwordController,
+                    passwordConfirmController: passwordConfirmController,
+                  ),
+                  ActionButton(
+                    onPressed: () {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      signUpUser();
+                    },
+                  ),
+                ],
+              ),
       ),
     );
   }
 }
 
 class BodyForm extends StatelessWidget {
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneNumberContrtoller;
+  final TextEditingController passwordController;
+  final TextEditingController passwordConfirmController;
   const BodyForm({
     super.key,
+    required this.emailController,
+    required this.passwordController,
+    required this.nameController,
+    required this.phoneNumberContrtoller,
+    required this.passwordConfirmController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const Align(
+    return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SignUpText(text: 'Name'),
-            SignUpTextField(hintText: 'Mostafa'),
-            SizedBox(height: 10),
-            SignUpText(text: 'Email'),
-            SignUpTextField(hintText: 'mostafa.hamed.w@gmail.com'),
-            SizedBox(height: 10),
-            SignUpText(text: 'Phone'),
-            SignUpTextField(hintText: '+201022212981'),
-            SizedBox(height: 10),
-            SignUpText(text: 'Password'),
-            SignUpTextField(hintText: '********'),
-            SizedBox(height: 10),
-            SignUpText(text: 'Confirm password'),
-            SignUpTextField(hintText: '********'),
-            SizedBox(height: 30),
-            Text(
+            const SignUpText(text: 'Name'),
+            SignUpTextField(hintText: 'Mostafa', controller: nameController),
+            const SizedBox(height: 10),
+            const SignUpText(text: 'Email'),
+            SignUpTextField(hintText: 'mostafa.hamed.w@gmail.com', controller: emailController),
+            const SizedBox(height: 10),
+            const SignUpText(text: 'Phone'),
+            SignUpTextField(hintText: '+201022212981', controller: phoneNumberContrtoller),
+            const SizedBox(height: 10),
+            const SignUpText(text: 'Password'),
+            SignUpTextField(
+              hintText: '********',
+              controller: passwordController,
+              obscureText: true,
+            ),
+            const SizedBox(height: 10),
+            const SignUpText(text: 'Confirm password'),
+            SignUpTextField(
+              hintText: '********',
+              controller: passwordConfirmController,
+              obscureText: true,
+            ),
+            const SizedBox(height: 30),
+            const Text(
               'By signing up, i agree to the flex fit user\nAgreement and privacy policy',
               style: TextStyle(
                 fontSize: 17,
@@ -80,16 +163,23 @@ class SignUpText extends StatelessWidget {
 }
 
 class SignUpTextField extends StatelessWidget {
+  final TextEditingController? controller;
+  final bool obscureText;
   const SignUpTextField({
     super.key,
     required this.hintText,
+    this.controller,
+    this.obscureText = false,
   });
   final String hintText;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: obscureText,
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: kLoginPageMainColor,
@@ -195,8 +285,10 @@ class BodyHeader extends StatelessWidget {
 }
 
 class ActionButton extends StatelessWidget {
+  final void Function()? onPressed;
   const ActionButton({
     super.key,
+    this.onPressed,
   });
 
   @override
@@ -204,7 +296,7 @@ class ActionButton extends StatelessWidget {
     return Column(
       children: [
         TextButton(
-          onPressed: () {},
+          onPressed: onPressed,
           child: Container(
             height: 50,
             width: Get.width * 0.7,

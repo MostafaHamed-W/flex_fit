@@ -1,11 +1,50 @@
 import 'package:flex_fit/routes/app_pages.dart';
+import 'package:flex_fit/services/firebase_auth.dart';
 import 'package:flex_fit/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:get/route_manager.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  bool isLoading = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void signInUser() async {
+    setState(() {
+      isLoading = true;
+    });
+    String result = await FirebaseAuthMethods().logIn(
+      email: emailController.text,
+      password: passwordController.text,
+      context: context,
+    );
+    if (result == 'success') {
+      setState(() {
+        isLoading = false;
+      });
+      Get.offAllNamed(Routes.HOME);
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +139,9 @@ class LoginView extends StatelessWidget {
                     'Email',
                     style: TextStyle(fontSize: 18, color: kLoginPageMainColor),
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
                       hintText: 'mostafa.hamde.w@gmail.com',
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -120,9 +160,10 @@ class LoginView extends StatelessWidget {
                     'Password',
                     style: TextStyle(fontSize: 18, color: kLoginPageMainColor),
                   ),
-                  const TextField(
+                  TextField(
+                    controller: passwordController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: '********',
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -155,7 +196,9 @@ class LoginView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            signInUser();
+                          },
                           child: Container(
                             width: Get.width * 0.7,
                             height: 50,
@@ -163,14 +206,16 @@ class LoginView extends StatelessWidget {
                               color: kFirstColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: const Center(
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
+                            child: Center(
+                              child: isLoading == true
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
