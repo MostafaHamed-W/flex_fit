@@ -1,8 +1,6 @@
-import 'package:flex_fit/shared/styles/colors.dart';
 import 'package:flex_fit/shared/xcore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 
 class AboutView extends StatelessWidget {
   const AboutView({super.key});

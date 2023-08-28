@@ -1,7 +1,7 @@
 import 'package:flex_fit/routes/app_pages.dart';
 import 'package:flex_fit/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:get/route_manager.dart';
 
 class LoginView extends StatelessWidget {
