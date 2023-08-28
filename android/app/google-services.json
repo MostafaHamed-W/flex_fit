@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "740371333070",
+    "project_id": "flex-fit-f31cd",
+    "storage_bucket": "flex-fit-f31cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740371333070:android:d67fbe85353137cc70b59f",
+        "android_client_info": {
+          "package_name": "com.example.flex_fit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740371333070-jbq1crppqqftgm65t273h374v8hu6b5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCORcLL9ebXYN5VUtxL6xmfHxlchXuztww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740371333070-jbq1crppqqftgm65t273h374v8hu6b5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
