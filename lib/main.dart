@@ -1,9 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flex_fit/firebase_options.dart';
 import 'package:flex_fit/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
   WidgetsFlutterBinding.ensureInitialized();
